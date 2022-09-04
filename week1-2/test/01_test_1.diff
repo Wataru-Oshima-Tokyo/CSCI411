@@ -1,0 +1,28 @@
+1,24c1,2
+< Number of nodes and number of edges: 
+< Add 5 edges: 
+< 
+< Original
+< 0 1 2 3 4 
+< 2 
+< 3 4 
+< 4 
+< 1 
+<  Transposed 
+< 0 1 2 3 4 
+< 4 
+< 1 
+< 2 
+< 2 3 
+< 0 0
+< 1 0
+< 2 0
+< 3 0
+< 4 0
+< sccs size: 1
+< id: 0 size: 4
+< In: 0
+< Out 0
+---
+> Number of nodes and number of edges: 
+> Add 5 edges: 
