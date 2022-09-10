@@ -47,18 +47,20 @@ vector<int> findSetI(vector<vector<Edge*>> A){
     vector<int> L;
     for (int i = 1; i < A[0].size(); i++) //Iterate |V|-1
     {
-       if (A[i][0]->from->dist ==INT_MAX)
+        
+       if (!A[i].empty() &&A[i][0]->from->dist ==INT_MAX){
             A[i][0]->from->dist=0;
-
+            
+       }
+        
        for (int j = 0; j < A[i].size(); j++){ //Iterate |E|
-            std::cout << " from " << A[i][j]->from->id << ": dist " << A[i][j]->from->dist
-            << " to " << A[i][j]->to->id << ": dist " << A[i][j]->to->dist
-            << std::endl;
+            // std::cout << " from " << A[i][j]->from->id << ": dist " << A[i][j]->from->dist
+            // << " to " << A[i][j]->to->id << ": dist " << A[i][j]->to->dist
+            // << std::endl;
             if (A[i][j]->to->dist > (A[i][j]->from->dist + A[i][j]->weight)){
                 A[i][j]->to->dist = A[i][j]->from->dist + A[i][j]->weight;
-                std::cout << "updated" << std::endl;
+                // std::cout << "updated" << std::endl;
             }
-                
        }
     }
     std::cout << "" << std::endl;
@@ -71,16 +73,16 @@ vector<int> findSetI(vector<vector<Edge*>> A){
                     L.push_back(A[i][j]->from->id);
                     continue;
                 }
-                std::cout << " from " << A[i][j]->from->id << ": dist " << A[i][j]->from->dist
-                << " to " << A[i][j]->to->id << ": dist " << A[i][j]->to->dist
-                << std::endl;
+                // std::cout << " from " << A[i][j]->from->id << ": dist " << A[i][j]->from->dist
+                // << " to " << A[i][j]->to->id << ": dist " << A[i][j]->to->dist
+                // << std::endl;
                 if (A[i][j]->to->dist > (A[i][j]->from->dist + A[i][j]->weight)){
                     // A[i][j]->to->dist = A[i][j]->from->dist + A[i][j]->weight;
                     L.push_back(A[i][j]->to->id);
                     L.push_back(A[i][j]->from->id);
                     A[i][j]->to->inI = true;
                     A[i][j]->from->inI = true;
-                    std::cout << "inserted" << std::endl;
+                    // std::cout << "inserted" << std::endl;
                 }
             }
             A[i][j]->from->visited =true;                
@@ -88,9 +90,9 @@ vector<int> findSetI(vector<vector<Edge*>> A){
     }
     sort( L.begin(), L.end() );
     L.erase(unique( L.begin(), L.end() ), L.end() );
-    for (auto l:L){
-        std::cout << l <<std::endl;
-    }
+    // for (auto l:L){
+    //     std::cout << l <<std::endl;
+    // }
         
     return L;
 }

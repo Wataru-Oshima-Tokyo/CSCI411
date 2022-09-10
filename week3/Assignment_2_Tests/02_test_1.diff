@@ -1,22 +1,2 @@
-1,19c1
-<  from 1: dist 0 to 2: dist 2147483647
-< updated
-<  from 1: dist 0 to 3: dist 2147483647
-< updated
-<  from 1: dist 0 to 4: dist 2147483647
-< updated
-<  from 2: dist 3 to 5: dist 2147483647
-< updated
-<  from 3: dist 5 to 6: dist 2147483647
-< updated
-<  from 4: dist 1 to 7: dist 2147483647
-< updated
-<  from 5: dist 8 to 8: dist 2147483647
-< updated
-<  from 6: dist 11 to 3: dist 5
-<  from 6: dist 11 to 8: dist 3
-<  from 7: dist 5 to 4: dist 1
-< updated
-<  from 7: dist 5 to 8: dist 3
----
-> 4 7 8
+1d0
+< 
