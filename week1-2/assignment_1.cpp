@@ -48,11 +48,14 @@ struct Result {
 
 //for debug, pritn the adjucent list
 void printAdjcentList(vector<vector<Node*>>& A){
+    int counter =0;
     for(auto a:A){
+        std::cout << counter << ": ";
         for( auto v:a){
             std::cout << v->id << " ";
         }
         std::cout <<std::endl;
+        counter++;
     }
 }
 
@@ -85,10 +88,10 @@ vector<vector<Node*>> reverseEdges(vector<vector<Node*>> A){
             Ta[v->id].push_back(Ta[0][i]);
         }
     }
-    std::cout << "Original" << std::endl;
-    printAdjcentList(A);
-    std::cout <<" Transposed "<< std::endl;
-    printAdjcentList(Ta);
+    // std::cout << "Original" << std::endl;
+    // printAdjcentList(A);
+    // std::cout <<" Transposed "<< std::endl;
+    // printAdjcentList(Ta);
     return Ta;
 }
 
@@ -108,8 +111,8 @@ void DFSSCC(vector<vector<Node*>> A, Node* v, vector<Node*> &L){
             
         }
     }    
-    //added the L 
-    L.push_back(v); 
+    //adding the L at the front
+    L.insert(L.begin(),v); 
 }
 
 /******************************************************************************************************************
@@ -152,13 +155,10 @@ vector<SCCNode*> SCC(vector<vector<Node*>> A){
             DFSSCC(A,A[0][i],L);
         }
     }
-    // for (auto &a:L){
-    //     std::cout << a->id << " ";
-    //     a->visited = false;
-    // }
-    std::cout <<std::endl;
+
+    // std::cout <<std::endl;
     vector<vector<Node*>> Ta = reverseEdges(A);
-    int counter =0;
+    int counter = 0;
     for (auto v:L){
         if(Ta[0][v->id]->SCC == -1){
             // std::cout << "here" << std::endl;
@@ -175,40 +175,19 @@ vector<SCCNode*> SCC(vector<vector<Node*>> A){
         }
     }
 
-    // vector<vector<Node*>> SCCAs(sccs.size());
-    // for (auto a:Ta[0]){
-    //     SCCAs[a->SCC].push_back(a);
-    // }
-    // for (auto a:SCCAs){
-    //     for(auto b:a){
-    //         for (auto c:A[b->id]){
-    //             if(b->SCC != c->SCC){
-    //                 sccs[b->SCC]->hasOutEdges = true;
-    //                 break;
-    //             }
-    //         }
-    //         for (auto c:Ta[b->id]){
-    //             if(b->SCC != c->SCC){
-    //                 sccs[b->SCC]->hasInEdges = true;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
 
-
-    for (auto &a:Ta[0]){
-        std::cout << a->id << " ";
-        std::cout << a->SCC << std::endl;
-    }
+    // for (auto &a:Ta[0]){
+    //     std::cout << a->id << " ";
+    //     std::cout << a->SCC << std::endl;
+    // }
     
-    std::cout << "sccs size: " <<sccs.size() << std::endl;
-    for (int i=0; i<sccs.size();i++){
-        std::cout << "id: "<<sccs[i]->id << " ";
-        std::cout << "size: "<<sccs[i]->size << std::endl;
-        std::cout << "In: "<<sccs[i]->hasInEdges << std::endl;
-        std::cout << "Out " <<sccs[i]->hasOutEdges << std::endl;
-    }
+    // std::cout << "sccs size: " <<sccs.size() << std::endl;
+    // for (int i=0; i<sccs.size();i++){
+    //     std::cout << "id: "<<sccs[i]->id << " ";
+    //     std::cout << "size: "<<sccs[i]->size << std::endl;
+    //     std::cout << "In: "<<sccs[i]->hasInEdges << std::endl;
+    //     std::cout << "Out " <<sccs[i]->hasOutEdges << std::endl;
+    // }
     return sccs;
 }
 
@@ -218,20 +197,20 @@ vector<SCCNode*> SCC(vector<vector<Node*>> A){
  * A - vector<vector<Node*>> - an adjacency list                                                *
  * return - Result - a Result struct holding the sizes of sets A, B, and C                      *
  * **********************************************************************************************/
-Result getSetSizes(vector<vector<Node*>> A){
+Result* getSetSizes(vector<vector<Node*>> A){
     //YOUR CODE HERE
     vector<SCCNode*> sccs = SCC(A);
-    Result result;
-    result.A=0;
-    result.B=0;
-    result.C=0;
+    static Result* result = new Result();
+    result->A=0;
+    result->B=0;
+    result->C=0;
     for (auto scc:sccs){
        if (!scc->hasInEdges && scc->hasOutEdges){
-            result.A += scc->size;
+            result->A += scc->size;
         }else if (scc->hasInEdges && !scc->hasOutEdges){
-            result.B += scc->size;
+            result->B += scc->size;
         }else{
-            result.C += scc->size;
+            result->C += scc->size;
         }
     }
     return result;
@@ -266,8 +245,8 @@ int main(){
     }
 
     //call getSetSizes to determine the size of the sets A, B, and C and print the results
-    Result R = getSetSizes(A);
-    cout << "|A| = " << R.A << ", |B| = " << R.B << ", |C| = " << R.C;
+    Result* R = getSetSizes(A);
+    cout << "|A| = " << R->A << ", |B| = " << R->B << ", |C| = " << R->C;
 
     return 0;
 }

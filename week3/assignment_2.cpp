@@ -45,10 +45,12 @@ struct Edge {
 vector<int> findSetI(vector<vector<Edge*>> A){
     //YOUR CODE HERE
     vector<int> L;
-    A[1][0]->from->dist=0;
-    for (int i = 1; i < A[0].size(); i++)
+    for (int i = 1; i < A[0].size(); i++) //Iterate |V|-1
     {
-       for (int j = 0; j < A[i].size(); j++){
+       if (A[i][0]->from->dist ==INT_MAX)
+            A[i][0]->from->dist=0;
+
+       for (int j = 0; j < A[i].size(); j++){ //Iterate |E|
             std::cout << " from " << A[i][j]->from->id << ": dist " << A[i][j]->from->dist
             << " to " << A[i][j]->to->id << ": dist " << A[i][j]->to->dist
             << std::endl;
@@ -60,15 +62,36 @@ vector<int> findSetI(vector<vector<Edge*>> A){
        }
     }
     std::cout << "" << std::endl;
-    for (int i = 1; i < A[0].size(); i++){
-        std::cout << " from " << A[0][i]->from->id << ": dist " << A[0][i]->from->dist
-            << " to " <<A[0][i]->to->id << ": dist " << A[0][i]->to->dist
-            << std::endl;
-        if (A[0][i]->to->dist > (A[0][i]->from->dist + A[0][i]->weight))
-                L.push_back(A[0][i]->from->id);
+    for (int i = 1; i < A[0].size(); i++) //Iterate |V|-1
+    { 
+       for (int j = 0; j < A[i].size(); j++){ //Iterate |E|
+            if(!A[i][j]->to->visited || !A[i][j]->from->visited){
+                if  (A[i][j]->to->inI || A[i][j]->from->inI){
+                    L.push_back(A[i][j]->to->id);
+                    L.push_back(A[i][j]->from->id);
+                    continue;
+                }
+                std::cout << " from " << A[i][j]->from->id << ": dist " << A[i][j]->from->dist
+                << " to " << A[i][j]->to->id << ": dist " << A[i][j]->to->dist
+                << std::endl;
+                if (A[i][j]->to->dist > (A[i][j]->from->dist + A[i][j]->weight)){
+                    // A[i][j]->to->dist = A[i][j]->from->dist + A[i][j]->weight;
+                    L.push_back(A[i][j]->to->id);
+                    L.push_back(A[i][j]->from->id);
+                    A[i][j]->to->inI = true;
+                    A[i][j]->from->inI = true;
+                    std::cout << "inserted" << std::endl;
+                }
+            }
+            A[i][j]->from->visited =true;                
        }
-    for (auto l:L)
+    }
+    sort( L.begin(), L.end() );
+    L.erase(unique( L.begin(), L.end() ), L.end() );
+    for (auto l:L){
         std::cout << l <<std::endl;
+    }
+        
     return L;
 }
 

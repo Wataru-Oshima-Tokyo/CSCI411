@@ -3,23 +3,23 @@
 < updated
 <  from 2: dist 15 to 5: dist 2147483647
 < updated
-<  from 3: dist 2147483647 to 1: dist 0
+<  from 3: dist 0 to 1: dist 0
+<  from 3: dist 0 to 4: dist 2147483647
 < updated
-<  from 3: dist 2147483647 to 4: dist 2147483647
+<  from 4: dist 1 to 2: dist 15
 < updated
-<  from 4: dist -2147483648 to 2: dist 15
+<  from 4: dist 1 to 6: dist 2147483647
 < updated
-<  from 4: dist -2147483648 to 6: dist 2147483647
+<  from 5: dist 18 to 6: dist -4
+<  from 6: dist -4 to 3: dist 0
+<  from 6: dist -4 to 5: dist 18
 < updated
-<  from 5: dist 18 to 6: dist 2147483643
-< updated
-<  from 6: dist 12 to 3: dist 2147483647
-< updated
-<  from 6: dist 12 to 5: dist 18
 < 
-<  from 1: dist -2147483641 to 1: dist -2147483641
-<  from 2: dist -2147483644 to 2: dist -2147483644
-<  from 3: dist 21 to 3: dist 21
-<  from 4: dist -2147483648 to 4: dist -2147483648
-<  from 5: dist 18 to 5: dist 18
-<  from 6: dist 12 to 6: dist 12
+<  from 1: dist 0 to 2: dist 5
+<  from 2: dist 5 to 5: dist 6
+<  from 3: dist 0 to 1: dist 0
+<  from 3: dist 0 to 4: dist 1
+<  from 4: dist 1 to 2: dist 5
+<  from 4: dist 1 to 6: dist -4
+<  from 5: dist 6 to 6: dist -4
+<  from 6: dist -4 to 3: dist 0
