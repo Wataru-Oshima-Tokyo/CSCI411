@@ -57,42 +57,36 @@ vector<int> findSetI(vector<vector<Edge*>> A){
             // std::cout << " from " << A[i][j]->from->id << ": dist " << A[i][j]->from->dist
             // << " to " << A[i][j]->to->id << ": dist " << A[i][j]->to->dist
             // << std::endl;
-            if (A[i][j]->to->dist > (A[i][j]->from->dist + A[i][j]->weight)){
+            if (A[i][j]->to->dist > (A[i][j]->from->dist + A[i][j]->weight)){ // if it's true, then update the value
                 A[i][j]->to->dist = A[i][j]->from->dist + A[i][j]->weight;
-                // std::cout << "updated" << std::endl;
             }
        }
     }
     // std::cout << "" << std::endl;
-    for (int i = 1; i < A[0].size(); i++) //Iterate |V|-1
+    for (int i = 1; i < A[0].size(); i++) //Iterate |V|-1 
     { 
-       for (int j = 0; j < A[i].size(); j++){ //Iterate |E|
+       for (int j = 0; j < A[i].size(); j++){ //Iterate |E| but actually it is less than that since the
             if(!A[i][j]->to->visited || !A[i][j]->from->visited){
                 if  (A[i][j]->to->inI || A[i][j]->from->inI){
-                    L.push_back(A[i][j]->to->id);
-                    L.push_back(A[i][j]->from->id);
+                    A[i][j]->to->inI = true;
+                    A[i][j]->from->inI = true;
                     continue;
                 }
                 // std::cout << " from " << A[i][j]->from->id << ": dist " << A[i][j]->from->dist
                 // << " to " << A[i][j]->to->id << ": dist " << A[i][j]->to->dist
                 // << std::endl;
-                if (A[i][j]->to->dist > (A[i][j]->from->dist + A[i][j]->weight)){
-                    // A[i][j]->to->dist = A[i][j]->from->dist + A[i][j]->weight;
-                    L.push_back(A[i][j]->to->id);
-                    L.push_back(A[i][j]->from->id);
+                if (A[i][j]->to->dist > (A[i][j]->from->dist + A[i][j]->weight)){ // if it updates the value then to and from node are in the negative cycle
                     A[i][j]->to->inI = true;
                     A[i][j]->from->inI = true;
-                    // std::cout << "inserted" << std::endl;
                 }
             }
             A[i][j]->from->visited =true;                
        }
     }
-    sort( L.begin(), L.end() );
-    L.erase(unique( L.begin(), L.end() ), L.end() );
-    // for (auto l:L){
-    //     std::cout << l <<std::endl;
-    // }
+    for (int i = 1; i < A[0].size(); i++){ //Iterate |V|-1
+        if  (A[0][i]->to->inI || A[0][i]->from->inI)
+            L.push_back(A[0][i]->to->id);
+    }
         
     return L;
 }
