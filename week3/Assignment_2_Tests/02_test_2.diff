@@ -1,0 +1,24 @@
+1,21c1
+<  from 1: dist 0 to 2: dist 2147483647
+< updated
+<  from 1: dist 0 to 3: dist 2147483647
+< updated
+<  from 2: dist 100 to 4: dist 2147483647
+< updated
+<  from 3: dist -23 to 1: dist 0
+< updated
+<  from 3: dist -23 to 5: dist 2147483647
+< updated
+<  from 4: dist 117 to 2: dist 100
+<  from 4: dist 117 to 5: dist 35
+<  from 5: dist 35 to 3: dist -23
+<  from 5: dist 35 to 2: dist 100
+< updated
+< 
+<  from 1: dist -19 to 1: dist -19
+<  from 2: dist 47 to 2: dist 47
+<  from 3: dist -23 to 3: dist -23
+<  from 4: dist 117 to 4: dist 117
+<  from 5: dist 35 to 5: dist 35
+---
+> 1 2 3 4 5
