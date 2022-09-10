@@ -63,7 +63,7 @@ vector<int> findSetI(vector<vector<Edge*>> A){
             }
        }
     }
-    std::cout << "" << std::endl;
+    // std::cout << "" << std::endl;
     for (int i = 1; i < A[0].size(); i++) //Iterate |V|-1
     { 
        for (int j = 0; j < A[i].size(); j++){ //Iterate |E|
