@@ -41,34 +41,33 @@ void findIndex(vector<int> &result, vector<int> &coins, int lastCoin){
  * ***************************************************************************************************/
 vector<int> makeChange(int target, vector<int> coins){
     // YOUR CODE HERE
+    int max = 10000000;
     vector<int> L;
     vector<ChangeCell> C;
     for (int i=0; i<target+1;i++){
         ChangeCell _cc;
         _cc.lastCoin=0;
         _cc.numCoins=0;
-        L.push_back(10000000);
+        L.push_back(max);
         C.push_back(_cc);
     }
 
-    // for (int i=0; i<coins.size();i++)
-    //     C.push_back(0);
     
     L[0]=0;
     for (int i=1; i<target+1; i++){
-        // bool initial = true;
-        // for (int j=coins.size()-1; j>-1;j--){
-        for (int j=0; j<coins.size();j++){
+        int prev =0;
+        for (int j=coins.size()-1; j>-1;j--){   
+            
             if (i<coins[j])
                 continue;
             else{
                 L[i] = std::min(L[i],L[i-coins[j]]+1); //number of coins
-                C[i].numCoins = L[i];
-                // if(initial){
-                    C[i].lastCoin = coins[j];
-                //     initial = false;
-                // }
-                
+                if (L[i] != max && prev != L[i]){
+                    C[i].numCoins = L[i];
+                    C[i].lastCoin = coins[j];  
+                    prev = L[i];  
+                }
+            
             }
         }
         // cout << temp << endl;
@@ -83,9 +82,10 @@ vector<int> makeChange(int target, vector<int> coins){
     // cout << "last coin " << C[index].lastCoin << endl;
     for(int i=0; i<C[target].numCoins;i++){
         findIndex(result,coins, C[index].lastCoin);
-        index -= C[index].lastCoin;
         // cout << index << endl;
-
+        // cout << "num of coins " << C[index].numCoins << endl;
+        // cout << "last coin " << C[index].lastCoin << endl;
+        index -= C[index].lastCoin;
     }
     
     return result;
