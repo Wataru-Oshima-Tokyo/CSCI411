@@ -4,7 +4,7 @@
 
 passed=0
 failed=0
-for f in "$2"\*.in
+for f in "$2"/*.in
 do
   basefile=$(basename -- "$f")
   #extension="${basefile##*.}"
