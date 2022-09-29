@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <limits.h>
+#include <algorithm>
 using namespace std;
 
 /*****************************************************************************************************
@@ -37,28 +38,32 @@ struct HotelCell{
  * **********************************************************************************************/
 TripCost hotelSequence(vector<int> hotels, int m){
   // YOUR CODE HERE
-  std::vector<HotelCell> cells(hotels.size());
-  TripCost trip;
-  trip.penalty =0;
-//   cout << trip.penalty << endl;
-  cells[0].penalty=0;
-  cells[0].prev=0;
+  std::vector<HotelCell> cells(hotels.size()); //make the same size of array as the hotels to store the value of penalty and previous hotel
+  TripCost trip; //make an instance for tirp cost
+  trip.penalty =0; //set the trip penalty 0 as an initial value
+  cells[0].penalty=0; //at the starting point, the penalty should be zero
+  cells[0].prev=0; // at the starting point, the previous hotel visited should be the node itself
   for (int i=1; i<hotels.size();i++){
-    cells[i].penalty=INT_MAX;
+    cells[i].penalty=INT_MAX; // set the initial penalty infinity
     for(int j=0; j<i;j++){
-        int penalty = (m-(hotels[i]-hotels[j]))*(m-(hotels[i]-hotels[j]));
-        if(penalty <=cells[i].penalty){
-            cells[i].penalty = penalty;
-            cells[i].prev = j;
+        int penalty = (m-(hotels[i]-hotels[j]))*(m-(hotels[i]-hotels[j])); //calculate the value of penalty for each hotel from the starting point to the current hotel
+        if(penalty <cells[i].penalty){ // if the calculated penalty is smaller than the current penalty, then ...
+            cells[i].penalty = penalty; //update the value of penalty 
+            cells[i].prev = j; // set the previous hotel visited
         }
     }
   }
-    for ( int i=0; i<cells.size();i++){
-        cout << "at " <<i << endl;
-        cout <<"penalty: " << cells[i].penalty << endl;
-        cout <<"prev: " << cells[i].prev << endl;
-        cout << endl; 
-    }
+  //back tracking starts from here
+  int i = hotels.size()-1;  //set the destination as the starting point to back truck
+  while(1){ //while it reaches the first hotel to visit
+    trip.seq.push_back(i); // added the hotel
+    trip.penalty += cells[i].penalty; // added the penalty
+    i = cells[i].prev; // set i the previous hotel visited
+    if (i == 0) // if it reaches the first hotel to visit, then break this loop
+      break;
+    
+  }
+  reverse(trip.seq.begin(), trip.seq.end()); //reverse the order
 
 
     return trip;
