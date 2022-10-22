@@ -1,0 +1,25 @@
+/*
+(1)
+*/
+
+
+/*
+(2)
+*/
+
+def  countShortestPaths(G, s, t)
+    for v < G:
+        v.distance = inf
+        v.predecessors = 0
+    G[s].disatance = 0
+    G[s].predesesors = 0
+    n = G[s]
+    for V <G
+        for u < V.neighbors
+            distance = V.distance + 1
+            if (u.distance > distance)
+                u.predecessors = V.predesseros
+            else if (u.distance == v.distance)
+                u.predecessors += 1
+
+    
