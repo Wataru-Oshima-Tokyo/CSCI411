@@ -2,24 +2,69 @@
 (1)
 */
 
+def longestRepeat_helper(G, v, _str, &l)
+    if v.children == 0 
+        return ""
+    else
+        _str =v.str
+        for u ∈ v.children
+            _str += longestRepeat_helper(G, u, _str, l) //add the substring to the _str
+            if (len(l) < len(_str)) //if the length of substring is longer than the provisioally longest substring
+                l = _str  //update l
+            _str=v.str //initialize the str so that you can use have the same substring gor the next neighbor
+        return _str
+
+
+def longestRepeat(S)
+    G = makeSuffixTree(S) //make a suffix tree with S
+    l = ""
+    for v ∈ G.root.neighbors // it only needs to traverse the neighbors of root
+        if v.children !=0
+            longestRepeat_helper(G, v, _str, l)
+
+    return l
+
 
 /*
 (2)
 */
 
 def  countShortestPaths(G, s, t)
-    for v < G:
-        v.distance = inf
+    for v ∈ G:
+        v.distance = ∞
         v.predecessors = 0
     G[s].disatance = 0
-    G[s].predesesors = 0
-    n = G[s]
-    for V <G
-        for u < V.neighbors
-            distance = V.distance + 1
+    G[s].predesesors = 1
+    for v from s to # of Nodes in G
+        for u ∈ v.neighbors
+            distance = v.distance + 1
             if (u.distance > distance)
-                u.predecessors = V.predesseros
-            else if (u.distance == v.distance)
-                u.predecessors += 1
+                u.predecessors = v.predesseros
+            else if (u.distance == distance)
+                u.predecessors += v.predecessors
+    return G[t].predecessors
 
-    
+/*
+(3)
+*/
+
+def numWays(m, C)
+    L=[m+1] 
+    for i from 0 to m+1:
+        L[i] = 0
+    //base case
+    for i from 0 to min(C)+1
+        if L[i]%min(C) ==0
+            L[i] = 1
+
+    for i from 0 to m+1: //m+1 times
+        for j in C //# of c times
+            if i-j <0
+                break
+            else
+                L[i] += L[i-j]
+    return L[m+1]
+
+/*
+(4)
+*/
